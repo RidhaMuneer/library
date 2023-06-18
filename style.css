@@ -35,8 +35,8 @@ button:hover{
     justify-content: center;
 }
 
-#pop-up{
-    margin-top: 10%;
+#pop-up {
+    margin-top: 40%;
     border-radius: 15px;
     width: 25%;
     background-color: white;
@@ -45,8 +45,10 @@ button:hover{
     align-items: center;
     justify-content: center;
     gap: 5px;
-    z-index: 1;
+    position: absolute;
+    z-index: 2;
 }
+
 
 input{
     border: 0px;
@@ -75,8 +77,20 @@ input{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 20px;
     padding: 20px;
     text-align: center;
+}
+
+#delete-btn-box{
+    padding-right: 80%;
+}
+
+#delete-btn{
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 0px;
+    color: #FF4D4F;
 }

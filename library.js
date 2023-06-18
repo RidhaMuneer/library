@@ -5,7 +5,7 @@ function Book(author, title, numOfPages, read, index) {
     this.title = title;
     this.numOfPages = numOfPages;
     this.read = read;
-    this.index = index;
+    this.index = index++;
     //this is used to keep track with the arrangement of books.
 }
 
@@ -22,20 +22,29 @@ Book.prototype.makeItRead = function(){
     console.log("it is read");
 }
 
-function deleteBookFromLibrary(){
-
-}
-
-function updateBookInLibrary(){
-
-}
-
 var readButton;
 function display(){
         var currentBook = myLibrary[lengthOfArray];
 
         var containerDiv = document.createElement("div");
         containerDiv.id = "bookContainer";
+        var containerDiv2 = document.createElement("div");
+        containerDiv2.id = "delete-btn-box";
+
+        var deleteBtn = document.createElement("button");
+        deleteBtn.id = "delete-btn";
+        deleteBtn.textContent = "X";
+
+        // var updateBtn = document.createElement("img");
+
+        // updateBtn.src = "image.jpg";
+        // updateBtn.alt = "Image"; 
+        // updateBtn.width = 20;      
+        // updateBtn.height = 20;
+
+        deleteBtn.style.fontSize = "larger";
+        containerDiv2.appendChild(deleteBtn);
+        // containerDiv2.appendChild(updateBtn);
 
         var authorLabel = document.createElement("label");
         authorLabel.textContent = currentBook.author;
@@ -57,7 +66,9 @@ function display(){
             readButton.style.backgroundColor = "#FF4D4F";
         }
         readButton.style.width = "80%";
+        readButton.id = "read-btn";
 
+        containerDiv.appendChild(containerDiv2);
         containerDiv.appendChild(authorLabel);
         containerDiv.appendChild(titleLabel);
         containerDiv.appendChild(pageNumLabel);
@@ -75,6 +86,11 @@ function display(){
                 readButton.style.backgroundColor = "#34D399";
                 this.makeItRead = true;
             }
+        }
+        deleteBtn.onclick = function(){
+            containerCard.removeChild(containerDiv);
+            containerCard.removeChild(containerDiv2);
+            myLibrary[currentBook.index] = null;
         }
 }
 
