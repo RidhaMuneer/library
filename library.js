@@ -9,9 +9,12 @@ function Book(author, title, numOfPages, read, index) {
     //this is used to keep track with the arrangement of books.
 }
 
+
+var lengthOfArray;
 function addBookToLibrary(author, title, numOfPages, read) {
-  var lengthOfArray = myLibrary.length;
-  myLibrary[lengthOfArray] = new Book(author, title, numOfPages, read, lengthOfArray);
+    lengthOfArray = myLibrary.length;
+    myLibrary[lengthOfArray] = new Book(author, title, numOfPages, read, lengthOfArray);
+    display();
 }
 
 Book.prototype.makeItRead = function(){
@@ -27,34 +30,79 @@ function updateBookInLibrary(){
 
 }
 
+var readButton;
 function display(){
-    for(var i = 0; i < myLibrary.length; i++){
-        //printing the elements of the array.
-        var currentBook = myLibrary[i];
-        //we should print out on the screen each attribute of that object.
-    }
+        var currentBook = myLibrary[lengthOfArray];
+
+        var containerDiv = document.createElement("div");
+        containerDiv.id = "bookContainer";
+
+        var authorLabel = document.createElement("label");
+        authorLabel.textContent = currentBook.author;
+        authorLabel.style.fontSize = "larger";
+        var titleLabel = document.createElement("label");
+        titleLabel.textContent = currentBook.title;
+        titleLabel.style.fontSize = "larger";
+        var pageNumLabel = document.createElement("label");
+        pageNumLabel.textContent = currentBook.numOfPages;
+        pageNumLabel.style.fontSize = "larger";
+        pageNumLabel.style.color = "black";
+
+        readButton = document.createElement("button");
+        if(currentBook.read == true){
+            readButton.textContent = "Read";
+            readButton.style.backgroundColor = "#34D399";
+        }else{
+            readButton.textContent = "Not Read";
+            readButton.style.backgroundColor = "#FF4D4F";
+        }
+        readButton.style.width = "80%";
+
+        containerDiv.appendChild(authorLabel);
+        containerDiv.appendChild(titleLabel);
+        containerDiv.appendChild(pageNumLabel);
+        containerDiv.appendChild(readButton);
+
+        var containerCard = document.getElementById("book-cards");
+        containerCard.appendChild(containerDiv);
+        readButton.onclick = function(){
+            if(currentBook.read == true){
+                readButton.textContent = "Not Read";
+                readButton.style.backgroundColor = "#FF4D4F";
+                this.makeItRead = false;
+            }else{
+                readButton.textContent = "Read";
+                readButton.style.backgroundColor = "#34D399";
+                this.makeItRead = true;
+            }
+        }
 }
+
+var input1;
+var input2;
+var input3;
+var checkbox;
 
 function generateElements() {
     var newHeading = document.createElement("h3");
     newHeading.textContent = "Add a New Book";
   
-    var input1 = document.createElement("input");
+    input1 = document.createElement("input");
     input1.type = "text";
     input1.placeholder = "Author";
   
-    var input2 = document.createElement("input");
+    input2 = document.createElement("input");
     input2.type = "text";
     input2.placeholder = "Title";
   
-    var input3 = document.createElement("input");
+    input3 = document.createElement("input");
     input3.type = "number";
     input3.placeholder = "Number of pages";
 
     var header5 = document.createElement("h5");
     header5.textContent = "Have you read it?";
   
-    var checkbox = document.createElement("input");
+    checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.style.marginTop = "-20px";
     checkbox.style.height = "20px";
@@ -76,14 +124,26 @@ function generateElements() {
     container.appendChild(header5);
     container.appendChild(checkbox);
     container.appendChild(addButton);
-}  
+    addButton.onclick = function() {
+        var authorInput = input1.value;
+        var titleInput = input2.value;
+        var pageNumInput = input3.value;
+        var readInput = handleCheckboxChange();
+        addBookToLibrary(authorInput, titleInput, pageNumInput, readInput);
+        container.removeChild(newHeading);
+        container.removeChild(input1);
+        container.removeChild(input2);
+        container.removeChild(input3);
+        container.removeChild(header5);
+        container.removeChild(checkbox);
+        container.removeChild(addButton);
+     };
+}
 
 function handleCheckboxChange() {
-    var checkbox = this; 
-    
     if (checkbox.checked) {
-      this.makeItRead;
+      return true;
     } else {
-      this.read = false;
+      return false;
     }
 }
